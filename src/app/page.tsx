@@ -100,7 +100,7 @@ function HeroSection() {
             {heroLetters.map((letter, index) => (
               <motion.span
                 key={`${letter.value}-${index}`}
-                className="display-font block text-4xl sm:text-6xl md:text-7xl lg:text-[9rem] xl:text-[10.5rem] font-black leading-[0.78] select-none cursor-pointer"
+                className="display-font block text-5xl sm:text-6xl md:text-7xl lg:text-[9rem] xl:text-[10.5rem] font-black leading-[0.78] select-none cursor-pointer"
                 style={{
                   color: letter.color,
                 }}
