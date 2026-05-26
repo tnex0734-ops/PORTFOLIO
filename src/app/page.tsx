@@ -348,8 +348,14 @@ function AiProductsSection() {
                     className="transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </div>
-                <h3 className="text-2xl font-black uppercase leading-tight">
+                <h3 className="text-2xl font-black uppercase leading-tight flex flex-wrap items-center gap-x-2 gap-y-1">
                   {project.title}
+                  {(project.title.toLowerCase() === "creonix" ||
+                    project.title.toLowerCase() === "prepblitz") && (
+                    <span className="inline-block rounded-md border border-[var(--coral)] bg-[var(--paper)] text-[var(--coral)] px-2 py-0.5 text-[9px] font-black uppercase tracking-widest shadow-[2px_2px_0_var(--ink)]">
+                      Under Progress
+                    </span>
+                  )}
                 </h3>
                 <p className="mt-4 text-sm leading-6 text-[var(--muted)]">
                   {project.description}
