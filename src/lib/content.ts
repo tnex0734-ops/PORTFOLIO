@@ -1,19 +1,22 @@
 export const navItems = [
   { label: "About", href: "#about" },
+  { label: "Tools", href: "#tools" },
   { label: "Products", href: "#products" },
   { label: "Figma", href: "#figma" },
   { label: "Contact", href: "#contact" },
 ];
 
 export const tools = [
-  "Figma",
-  "Lovable",
-  "Replit",
-  "Gemini",
-  "Codex",
-  "Antigravity",
-  "Stitch",
   "Canva",
+  "GPT",
+  "Codex",
+  "Claude",
+  "Gemini",
+  "Antigravity",
+  "Miro",
+  "Lovable",
+  "Stitch",
+  "Replit",
 ];
 
 export const aiProjects = [
@@ -60,7 +63,7 @@ export const figmaProjects = [
     title: "Palmist.io",
     subtitle: "Complete redesign of older version",
     link: "https://www.figma.com/design/RNsq1KmSm8tEiNfECWmwNd/projects-base?node-id=482-4",
-    accent: "#7893D4",
+    accent: "#E63946",
   },
   {
     number: "02",
@@ -68,14 +71,14 @@ export const figmaProjects = [
     subtitle:
       "Research papers into posters, reels, summaries, and presentations",
     link: "https://www.figma.com/design/ckhyv4bHBXo4yMwzVGwZ29/SARAL?node-id=0-1",
-    accent: "#AEBF7A",
+    accent: "#D90429",
   },
   {
     number: "03",
     title: "Spotify UI",
     subtitle: "Spotify UI design / clone",
     link: "https://www.figma.com/design/RNsq1KmSm8tEiNfECWmwNd/projects-base?node-id=0-1",
-    accent: "#E85B55",
+    accent: "#B7094C",
   },
 ];
 

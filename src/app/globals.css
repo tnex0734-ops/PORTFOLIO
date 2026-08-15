@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f5f3ee;
-  --ink: #11100e;
-  --muted: #746f66;
-  --line: #d8d0c3;
-  --sand: #d8cbb8;
-  --sage: #aebf7a;
-  --blue: #7893d4;
-  --coral: #e85b55;
-  --clay: #c8a878;
+  --paper: #fff5f5;
+  --ink: #220608;
+  --muted: #88424a;
+  --line: #f0c4c8;
+  --sand: #f8d7da;
+  --sage: #ff3b5c;
+  --blue: #d90429;
+  --coral: #ff4d4d;
+  --clay: #a4133c;
+  --red-primary: #e52424;
 }
 
 * {
@@ -29,8 +30,8 @@ body {
 }
 
 body::selection {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--red-primary);
+  color: #ffffff;
 }
 
 a,
@@ -46,14 +47,14 @@ button {
 }
 
 .display-font {
-  font-family: var(--font-archivo-black), "Arial Black", Impact, sans-serif;
-  letter-spacing: -0.015em;
+  font-family: var(--font-syne), var(--font-archivo-black), "Arial Black", Impact, sans-serif;
+  letter-spacing: -0.035em;
 }
 
 .poster-outline {
   color: transparent;
-  -webkit-text-stroke: 1px rgba(17, 16, 14, 0.14);
-  text-stroke: 1px rgba(17, 16, 14, 0.14);
+  -webkit-text-stroke: 1px rgba(229, 36, 36, 0.2);
+  text-stroke: 1px rgba(229, 36, 36, 0.2);
 }
 
 .grain {
@@ -61,10 +62,10 @@ button {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: 0.35;
   background-image:
-    linear-gradient(rgba(17, 16, 14, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 16, 14, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(229, 36, 36, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(229, 36, 36, 0.035) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: linear-gradient(to bottom, black, transparent 75%);
 }

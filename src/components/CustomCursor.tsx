@@ -42,7 +42,7 @@ export function CustomCursor() {
       style={{ x: smoothX, y: smoothY }}
     >
       <motion.div
-        className="rounded-full bg-[var(--ink)]"
+        className="rounded-full bg-[#e52424]"
         initial={false}
         animate={{
           opacity: visible ? 1 : 0,
