@@ -759,21 +759,21 @@ function ContactSection() {
         <div className="section-shell relative z-10">
           <motion.div
             {...fadeIn}
-            className="grid gap-8 sm:gap-10 border-2 border-[var(--ink)] bg-white p-6 sm:p-10 rounded-2xl shadow-[8px_8px_0_#e52424] lg:grid-cols-[1.1fr_0.9fr]"
+            className="grid gap-8 sm:gap-10 border-2 border-[var(--ink)] bg-white p-6 sm:p-10 rounded-2xl shadow-[8px_8px_0_#e52424] lg:grid-cols-[1.1fr_0.9fr] items-center"
           >
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-xs font-black uppercase tracking-widest text-[#e52424]">
                   Contact
                 </span>
                 <StarburstBadge text="GET IN TOUCH" />
               </div>
-              <h2 className="display-font text-4xl sm:text-7xl md:text-[7rem] font-black uppercase leading-[0.86] text-[var(--ink)]">
+              <h2 className="display-font text-3xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-black uppercase leading-[0.88] text-[var(--ink)] break-words">
                 Let&apos;s Connect
               </h2>
               <HandDoodle type="arrow" className="mt-4 hidden sm:block" />
             </div>
-            <div className="flex flex-col justify-end gap-4 sm:gap-5">
+            <div className="min-w-0 flex flex-col justify-center gap-4 sm:gap-5">
               {contactLinks.map((item) => {
                 const isExternal = item.href.startsWith("http");
 
@@ -784,24 +784,24 @@ function ContactSection() {
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noreferrer" : undefined}
                     whileHover={{ x: 4, scale: 1.01 }}
-                    className="group flex items-center justify-between gap-4 border-2 border-[var(--ink)] bg-[#fff8f8] p-3.5 sm:p-4 rounded-xl shadow-[3px_3px_0_#220608] hover:border-[#e52424] hover:shadow-[4px_4px_0_#e52424] transition-all"
+                    className="group flex items-center justify-between gap-4 border-2 border-[var(--ink)] bg-[#fff8f8] p-3.5 sm:p-4 rounded-xl shadow-[3px_3px_0_#220608] hover:border-[#e52424] hover:shadow-[4px_4px_0_#e52424] transition-all min-w-0"
                   >
-                    <span className="flex items-center gap-3">
-                      <span className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-lg border-2 border-[var(--ink)] bg-white text-[#e52424] shadow-[2px_2px_0_#220608]">
+                    <span className="flex items-center gap-3 min-w-0">
+                      <span className="grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-lg border-2 border-[var(--ink)] bg-white text-[#e52424] shadow-[2px_2px_0_#220608]">
                         <ContactIcon label={item.label} />
                       </span>
-                      <span>
+                      <span className="min-w-0">
                         <span className="block text-[10px] sm:text-xs font-black uppercase text-[var(--muted)]">
                           {item.label}
                         </span>
-                        <span className="subtle-link text-base sm:text-lg font-black text-[var(--ink)] group-hover:text-[#e52424]">
+                        <span className="subtle-link block text-sm sm:text-base md:text-lg font-black text-[var(--ink)] group-hover:text-[#e52424] truncate">
                           {item.value}
                         </span>
                       </span>
                     </span>
                     <ArrowUpRight
                       size={20}
-                      className="text-[#e52424] transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      className="text-[#e52424] shrink-0 transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     />
                   </motion.a>
                 );
