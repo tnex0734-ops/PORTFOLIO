@@ -9,3 +9,4 @@ out
 qa-*.png
 .chrome-*
 .edge-*
+*.tsbuildinfo

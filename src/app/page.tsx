@@ -1,12 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
+  ExternalLink,
   Mail,
   Phone,
   Sparkle,
   Star,
+  X,
 } from "lucide-react";
 import { BrandIcon } from "@/components/BrandIcon";
 import { CustomCursor } from "@/components/CustomCursor";
@@ -16,9 +19,10 @@ import {
   aiProjects,
   contactLinks,
   experience,
-  figmaProjects,
   navItems,
   tools,
+  uxUiProjects,
+  type UxUiProject,
 } from "@/lib/content";
 
 const softEase = [0.22, 1, 0.36, 1] as const;
@@ -66,8 +70,8 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ToolsSection />
+        <UxUiProjectsSection />
         <AiProductsSection />
-        <FigmaProjectsSection />
         <ExperienceSection />
         <ContactSection />
       </main>
@@ -514,11 +518,257 @@ function ToolsSection() {
   );
 }
 
+function UxUiProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState<UxUiProject | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProject]);
+
+  return (
+    <>
+      <BrutalistSectionDivider variant="zigzag" />
+      <section id="ux-ui" className="relative overflow-hidden py-20 sm:py-32 scroll-mt-16">
+        {/* Invisible anchor for backward compatibility with #figma */}
+        <span id="figma" className="absolute -top-20" aria-hidden="true" />
+
+        <FloatingShape className="left-6 top-20 text-[var(--sage)] opacity-35" delay={0.1}>
+          <Star size={26} fill="currentColor" />
+        </FloatingShape>
+        <FloatingShape className="right-8 top-12 text-[var(--blue)] opacity-45" delay={0.2}>
+          <Sparkle size={24} />
+        </FloatingShape>
+        <FloatingShape className="right-1/4 bottom-8 text-[var(--clay)] opacity-40" delay={0.3}>
+          <Star size={20} fill="currentColor" />
+        </FloatingShape>
+        <div
+          aria-hidden="true"
+          className="poster-outline display-font pointer-events-none absolute left-1/2 top-12 -translate-x-1/2 text-4xl sm:text-8xl md:text-[9rem] lg:text-[12rem] font-black uppercase leading-none select-none"
+        >
+          UX / UI
+        </div>
+
+        <div className="section-shell relative z-10">
+          <motion.div {...fadeIn} className="relative">
+            <SectionHeading
+              eyebrow="UX Research, UI Designs, Prototypes, Design Systems"
+              title="UX / UI Projects"
+            />
+            <HandDoodle type="underline" className="max-w-[280px] mt-1" />
+            <div className="absolute top-0 right-2 hidden sm:block">
+              <StarburstBadge text="CORE WORK" />
+            </div>
+          </motion.div>
+
+          <div className="mt-10 sm:mt-16 grid gap-6 md:grid-cols-3 items-stretch">
+            {uxUiProjects.map((project, index) => {
+              const isNexus = Boolean(project.hasModal);
+
+              return (
+                <motion.div
+                  key={project.title}
+                  {...fadeIn}
+                  transition={{ ...fadeIn.transition, delay: index * 0.06 }}
+                  whileHover={{ y: -6, rotate: index % 2 === 0 ? -1 : 1 }}
+                  className="group flex flex-col justify-between rounded-2xl border-2 border-[var(--ink)] bg-white p-5 shadow-[6px_6px_0_#220608] hover:shadow-[8px_8px_0_#e52424] transition-all duration-200"
+                >
+                  <div>
+                    {/* Clean Cover Artwork Preview */}
+                    <div
+                      onClick={() => isNexus && setSelectedProject(project)}
+                      className={`w-full flex items-center justify-center p-2 rounded-xl bg-[#fff5f5]/80 overflow-hidden ${
+                        isNexus ? "cursor-pointer" : ""
+                      }`}
+                    >
+                      <img
+                        src={project.coverImage}
+                        alt={project.title}
+                        className="w-full max-h-[250px] object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div className="mt-5">
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2.5 py-0.5 rounded shadow-[2px_2px_0_#220608]">
+                          {project.number}
+                        </span>
+                        <span className="font-mono text-[10px] font-black uppercase tracking-wider text-[var(--muted)]">
+                          {project.category}
+                        </span>
+                      </div>
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-black uppercase text-[var(--ink)] group-hover:text-[#e52424] transition-colors flex items-center justify-between gap-2 break-words">
+                        <span>{project.title}</span>
+                        <ArrowUpRight
+                          size={20}
+                          className="text-[#e52424] shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        />
+                      </h3>
+                      <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[var(--muted)]">
+                        {project.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Single Clean CTA per Card */}
+                  <div className="mt-6 pt-4 border-t-2 border-[var(--line)]">
+                    {isNexus ? (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedProject(project)}
+                        className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-[var(--ink)] bg-[var(--ink)] py-2.5 px-4 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-[3px_3px_0_#e52424] hover:bg-[#e52424] hover:border-[#e52424] transition-all"
+                      >
+                        <span>Explore UX &amp; UI Prototype ✦</span>
+                      </button>
+                    ) : (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-[var(--ink)] bg-[#fff8f8] py-2.5 px-4 text-xs sm:text-sm font-black uppercase tracking-wider text-[var(--ink)] shadow-[2px_2px_0_#220608] hover:bg-[#e52424] hover:text-white hover:border-[#e52424] transition-all"
+                      >
+                        <BrandIcon name="Figma" className="h-4 w-4" />
+                        <span>Open Figma File ↗</span>
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* NEXUS GG DUAL MODAL (UX & UI) */}
+        <AnimatePresence>
+          {selectedProject && selectedProject.subProjects && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/75 backdrop-blur-sm"
+              onClick={() => setSelectedProject(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.94, y: 24, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.94, y: 24, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 280, damping: 26 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl border-3 border-[var(--ink)] bg-[var(--paper)] p-4 sm:p-8 shadow-[10px_10px_0_#e52424]"
+              >
+                {/* Modal Top Bar */}
+                <div className="flex items-start justify-between border-b-2 border-[var(--ink)] pb-4 gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2 py-0.5 rounded shadow-[2px_2px_0_#220608]">
+                        {selectedProject.number}
+                      </span>
+                      <span className="font-mono text-xs font-black uppercase text-[var(--muted)]">
+                        {selectedProject.category}
+                      </span>
+                    </div>
+                    <h2 className="display-font text-2xl sm:text-4xl font-black uppercase text-[var(--ink)]">
+                      {selectedProject.title}
+                    </h2>
+                    <p className="mt-1 text-xs sm:text-sm text-[var(--muted)] font-medium">
+                      Select whether to explore the UX Research (Miro) or interactive UI Prototype (Stitch):
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(null)}
+                    className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border-2 border-[var(--ink)] bg-white text-[var(--ink)] shadow-[3px_3px_0_#220608] hover:bg-[#e52424] hover:text-white hover:border-[#e52424] transition-all"
+                    aria-label="Close dialog"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                {/* Dual Sub-projects Showcase Grid */}
+                <div className="mt-6 grid gap-6 md:grid-cols-2">
+                  {selectedProject.subProjects.map((part) => (
+                    <div
+                      key={part.type}
+                      className="flex flex-col justify-between rounded-xl border-2 border-[var(--ink)] bg-white p-4 sm:p-5 shadow-[5px_5px_0_#220608]"
+                    >
+                      <div>
+                        {/* Artwork Cover depicting UX / UI */}
+                        <div className="w-full flex items-center justify-center p-2 rounded-xl bg-[#fff5f5]/80 overflow-hidden">
+                          <img
+                            src={part.coverImage}
+                            alt={part.title}
+                            className="w-full max-h-[220px] object-contain"
+                          />
+                        </div>
+
+                        <div className="mt-4">
+                          <span className="font-mono text-[10px] font-black uppercase tracking-wider text-[#e52424]">
+                            {part.badge}
+                          </span>
+                          <h3 className="text-lg sm:text-xl font-black uppercase text-[var(--ink)] mt-1">
+                            {part.title}
+                          </h3>
+                          <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[var(--muted)]">
+                            {part.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="mt-5 pt-3 border-t-2 border-[var(--line)]">
+                        <a
+                          href={part.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border-2 border-[var(--ink)] bg-[#e52424] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-[3px_3px_0_#220608] hover:bg-[var(--ink)] hover:border-[var(--ink)] transition-all"
+                        >
+                          <BrandIcon
+                            name={part.type === "ux" ? "Miro" : "Stitch"}
+                            className="h-4 w-4"
+                          />
+                          <span>{part.actionLabel}</span>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-4 border-t-2 border-[var(--line)] flex items-center justify-between text-xs font-bold text-[var(--muted)] uppercase">
+                  <span>Nexus GG Ecosystem</span>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedProject(null)}
+                    className="subtle-link text-[#e52424]"
+                  >
+                    Back to portfolio [ESC]
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
+    </>
+  );
+}
+
 function AiProductsSection() {
   return (
     <>
       <BrutalistSectionDivider variant="spikes" />
-      <section id="products" className="relative py-20 sm:py-32 overflow-hidden">
+      <section id="products" className="relative py-20 sm:py-32 overflow-hidden scroll-mt-16">
         <FloatingShape className="left-12 top-4 text-[var(--clay)] opacity-40" delay={0.1}>
           <Star size={22} fill="currentColor" />
         </FloatingShape>
@@ -532,14 +782,17 @@ function AiProductsSection() {
         />
         <div className="section-shell relative z-10">
           <motion.div {...fadeIn} className="relative">
-            <SectionHeading eyebrow="Vibe coded work" title="AI Powered Products" />
-            <HandDoodle type="underline" className="max-w-[260px] mt-1" />
+            <SectionHeading
+              eyebrow="Side projects & vibe coded work"
+              title="AI Powered Products / Side Projects"
+            />
+            <HandDoodle type="underline" className="max-w-[280px] mt-1" />
             <div className="absolute top-0 right-2 hidden sm:block">
-              <StarburstBadge text="AI STACK" />
+              <StarburstBadge text="SIDE PROJECTS" />
             </div>
           </motion.div>
 
-          <div className="mt-8 sm:mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
             {aiProjects.map((project, index) => (
               <motion.a
                 key={project.title}
@@ -549,10 +802,10 @@ function AiProductsSection() {
                 target="_blank"
                 rel="noreferrer"
                 whileHover={{ y: -5, rotate: index % 2 === 0 ? -1 : 1 }}
-                className="group flex min-h-[250px] sm:min-h-[280px] flex-col justify-between rounded-xl border-2 border-[var(--ink)] bg-white p-5 sm:p-6 shadow-[5px_5px_0_#e52424] transition duration-200 hover:shadow-[7px_7px_0_#220608]"
+                className="group flex min-h-[260px] sm:min-h-[290px] flex-col justify-between rounded-xl border-2 border-[var(--ink)] bg-white p-5 sm:p-6 shadow-[5px_5px_0_#e52424] transition duration-200 hover:shadow-[7px_7px_0_#220608]"
               >
                 <div>
-                  <div className="mb-4 sm:mb-6 flex items-center justify-between">
+                  <div className="mb-4 sm:mb-5 flex items-center justify-between">
                     <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2 py-0.5 rounded shadow-[2px_2px_0_#220608]">
                       0{index + 1}
                     </span>
@@ -561,7 +814,7 @@ function AiProductsSection() {
                       className="transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#e52424]"
                     />
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-black uppercase leading-tight flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <h3 className="text-lg sm:text-xl font-black uppercase leading-tight flex flex-wrap items-center gap-x-2 gap-y-1">
                     {project.title}
                     {(project.title.toLowerCase() === "creonix" ||
                       project.title.toLowerCase() === "prepblitz") && (
@@ -570,11 +823,11 @@ function AiProductsSection() {
                       </span>
                     )}
                   </h3>
-                  <p className="mt-3 text-xs sm:text-sm leading-5 sm:leading-6 text-[var(--muted)]">
+                  <p className="mt-2.5 text-xs sm:text-sm leading-5 sm:leading-6 text-[var(--muted)]">
                     {project.description}
                   </p>
                 </div>
-                <div className="mt-6 flex flex-wrap gap-1.5 sm:gap-2">
+                <div className="mt-5 flex flex-wrap gap-1.5 sm:gap-2">
                   {project.tools.map((tool) => (
                     <span
                       key={`${project.title}-${tool}`}
@@ -591,106 +844,6 @@ function AiProductsSection() {
         </div>
       </section>
     </>
-  );
-}
-
-function FigmaProjectsSection() {
-  return (
-    <>
-      <BrutalistSectionDivider variant="zigzag" />
-      <section id="figma" className="relative overflow-hidden py-20 sm:py-32">
-        <FloatingShape className="left-6 top-20 text-[var(--sage)] opacity-35" delay={0.1}>
-          <Star size={26} fill="currentColor" />
-        </FloatingShape>
-        <FloatingShape className="right-8 top-12 text-[var(--blue)] opacity-45" delay={0.2}>
-          <Sparkle size={24} />
-        </FloatingShape>
-        <FloatingShape className="right-1/4 bottom-8 text-[var(--clay)] opacity-40" delay={0.3}>
-          <Star size={20} fill="currentColor" />
-        </FloatingShape>
-        <div
-          aria-hidden="true"
-          className="poster-outline display-font pointer-events-none absolute left-1/2 top-12 -translate-x-1/2 text-4xl sm:text-8xl md:text-[9rem] lg:text-[12rem] font-black uppercase leading-none select-none"
-        >
-          Projects
-        </div>
-        <div className="section-shell relative z-10">
-          <motion.div {...fadeIn} className="relative">
-            <SectionHeading eyebrow="Figma files" title="Figma Projects" />
-            <HandDoodle type="underline" className="max-w-[210px] mt-1" />
-          </motion.div>
-
-          <div className="mt-10 sm:mt-16 grid gap-6 md:grid-cols-3">
-            {figmaProjects.map((project, index) => (
-              <motion.a
-                key={project.title}
-                {...fadeIn}
-                transition={{ ...fadeIn.transition, delay: index * 0.06 }}
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={{ y: -6, rotate: index % 2 === 0 ? -1 : 1 }}
-                className="group block"
-              >
-                <div
-                  className="relative min-h-[360px] sm:min-h-[440px] overflow-hidden rounded-xl border-2 border-[var(--ink)] p-4 sm:p-5 shadow-[6px_6px_0_#220608] transition duration-200"
-                  style={{ backgroundColor: project.accent }}
-                >
-                  <div className="flex items-start justify-between relative z-20">
-                    <span className="rounded-full border border-[var(--ink)] bg-[var(--paper)] px-3 py-1 font-mono text-xs font-black shadow-[2px_2px_0_#220608]">
-                      {project.number}
-                    </span>
-                    <ArrowUpRight size={20} className="text-white drop-shadow" />
-                  </div>
-                  <MockupSketch index={index} />
-                  <p className="display-font absolute -bottom-7 right-1 text-[6.5rem] sm:text-[8rem] font-black leading-none text-[var(--paper)] opacity-90 sm:text-[9rem] lg:text-[10rem] select-none">
-                    {project.number.replace("0", "")}
-                  </p>
-                </div>
-                <div className="mt-3 sm:mt-4 pr-2 sm:pr-3">
-                  <h3 className="text-base sm:text-lg font-black uppercase group-hover:text-[#e52424] transition-colors">{project.title}</h3>
-                  <p className="mt-1 text-xs sm:text-sm leading-5 text-[var(--muted)]">
-                    {project.subtitle}
-                  </p>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function MockupSketch({ index }: { index: number }) {
-  const isWide = index === 1;
-
-  return (
-    <div
-      aria-hidden="true"
-      className="absolute left-1/2 top-20 sm:top-24 flex -translate-x-1/2 items-center justify-center select-none"
-    >
-      <div
-        className={`relative border-2 border-[var(--ink)] bg-[var(--paper)] shadow-[10px_14px_0_rgba(17,16,14,0.25)] ${
-          isWide
-            ? "h-36 w-52 sm:h-40 sm:w-64 rotate-3 rounded-md"
-            : "h-52 w-28 sm:h-64 sm:w-36 -rotate-6 rounded-[28px]"
-        }`}
-      >
-        <div className="absolute left-1/2 top-3 h-2 w-8 sm:w-10 -translate-x-1/2 rounded-full bg-[var(--ink)] opacity-70" />
-        <div className="absolute inset-x-3 sm:inset-x-5 top-10 sm:top-12 space-y-2.5 sm:space-y-3">
-          <div className="h-3.5 sm:h-4 rounded-full bg-[var(--ink)] opacity-85" />
-          <div className="h-2.5 sm:h-3 w-2/3 rounded-full bg-[var(--ink)] opacity-30" />
-          <div className="grid grid-cols-2 gap-1.5 sm:gap-2 pt-2 sm:pt-3">
-            <div className="h-10 sm:h-14 rounded border border-[var(--ink)] bg-transparent" />
-            <div className="h-10 sm:h-14 rounded border border-[var(--ink)] bg-transparent" />
-          </div>
-        </div>
-      </div>
-      {index === 0 ? (
-        <div className="relative -ml-6 sm:-ml-8 mt-16 sm:mt-20 h-36 w-20 sm:h-48 sm:w-28 rotate-6 rounded-[20px] sm:rounded-[24px] border-2 border-[var(--ink)] bg-[var(--paper)] shadow-[8px_10px_0_rgba(17,16,14,0.2)]" />
-      ) : null}
-    </div>
   );
 }
 
@@ -715,27 +868,29 @@ function ExperienceSection() {
             <SectionHeading eyebrow="Recent roles" title="Experience" />
             <HandDoodle type="underline" className="max-w-[160px] mt-1" />
           </motion.div>
-          <div className="mt-8 sm:mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {experience.map((item, index) => (
               <motion.article
                 key={item.company}
                 {...fadeIn}
                 transition={{ ...fadeIn.transition, delay: index * 0.05 }}
                 whileHover={{ y: -4, rotate: index % 2 === 0 ? -1 : 1 }}
-                className="relative min-h-44 sm:min-h-56 rounded-xl border-2 border-[var(--ink)] bg-white p-5 shadow-[5px_5px_0_#e52424]"
+                className="relative min-h-44 sm:min-h-48 rounded-xl border-2 border-[var(--ink)] bg-white p-5 shadow-[5px_5px_0_#e52424] flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between border-b-2 border-[var(--ink)] pb-3">
-                  <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2 py-0.5 rounded shadow-[2px_2px_0_#220608]">
-                    ROLE 0{index + 1}
-                  </span>
-                  <span className="font-mono text-xs text-[var(--muted)]">{item.date}</span>
+                <div>
+                  <div className="flex items-center justify-between border-b-2 border-[var(--ink)] pb-3">
+                    <span className="font-mono text-xs font-black text-white bg-[#e52424] px-2 py-0.5 rounded shadow-[2px_2px_0_#220608]">
+                      ROLE 0{index + 1}
+                    </span>
+                    <span className="font-mono text-[11px] font-bold text-[var(--muted)]">{item.date}</span>
+                  </div>
+                  <h3 className="mt-4 text-base sm:text-lg font-black uppercase leading-tight text-[var(--ink)]">
+                    {item.company}
+                  </h3>
+                  <p className="mt-2 text-xs sm:text-sm font-black uppercase text-[#e52424]">
+                    {item.role}
+                  </p>
                 </div>
-                <h3 className="mt-4 text-lg sm:text-2xl font-black uppercase leading-tight text-[var(--ink)]">
-                  {item.company}
-                </h3>
-                <p className="mt-2 text-xs sm:text-sm font-black uppercase text-[#e52424]">
-                  {item.role}
-                </p>
               </motion.article>
             ))}
           </div>

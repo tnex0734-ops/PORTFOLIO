@@ -17,7 +17,6 @@ const archivoBlack = Archivo_Black({
 const syne = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
-  weight: ["700", "800"],
 });
 
 const spaceGrotesk = Space_Grotesk({

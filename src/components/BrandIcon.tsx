@@ -5,8 +5,13 @@ import {
   siGithub,
   siGooglegemini,
   siMiro,
+  siNextdotjs,
   siNodedotjs,
+  siReact,
   siReplit,
+  siTailwindcss,
+  siTypescript,
+  siVercel,
 } from "simple-icons";
 
 type SimpleIcon = {
@@ -39,6 +44,13 @@ const iconMap: Record<
   GitHub: { kind: "simple", icon: siGithub },
   Claude: { kind: "simple", icon: siAnthropic },
   Miro: { kind: "simple", icon: siMiro },
+  "Next.js": { kind: "simple", icon: siNextdotjs },
+  Nextjs: { kind: "simple", icon: siNextdotjs },
+  TypeScript: { kind: "simple", icon: siTypescript },
+  Tailwind: { kind: "simple", icon: siTailwindcss },
+  Vercel: { kind: "simple", icon: siVercel },
+  React: { kind: "simple", icon: siReact },
+  Motion: { kind: "simple", icon: siReact },
   GPT: { kind: "custom", path: customPaths.GPT },
   ChatGPT: { kind: "custom", path: customPaths.ChatGPT },
   Canva: { kind: "custom", path: customPaths.Canva },
