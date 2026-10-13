@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
+  Download,
   ExternalLink,
   Mail,
   Phone,
@@ -56,13 +57,26 @@ export default function Home() {
               </a>
             ))}
           </div>
-          <a
-            href="mailto:taushikok@gmail.com"
-            className="grid h-9 w-9 place-items-center rounded-full border border-[var(--ink)] text-[var(--ink)] transition duration-200 hover:bg-[var(--ink)] hover:text-[var(--paper)]"
-            aria-label="Email Taushik"
-          >
-            <Mail size={16} />
-          </a>
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <a
+              href="/Taushik_ux_resume.pdf"
+              download="Taushik_ux_resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full border-2 border-[var(--ink)] bg-[#e52424] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-[2px_2px_0_#220608] hover:bg-[var(--ink)] hover:border-[var(--ink)] transition-all active:translate-x-0.5 active:translate-y-0.5"
+              aria-label="Download Resume"
+            >
+              <Download size={13} className="shrink-0" />
+              <span>Resume</span>
+            </a>
+            <a
+              href="mailto:taushikok@gmail.com"
+              className="grid h-9 w-9 place-items-center rounded-full border border-[var(--ink)] text-[var(--ink)] transition duration-200 hover:bg-[var(--ink)] hover:text-[var(--paper)]"
+              aria-label="Email Taushik"
+            >
+              <Mail size={16} />
+            </a>
+          </div>
         </nav>
       </header>
 
@@ -964,11 +978,24 @@ function ContactSection() {
             </div>
           </motion.div>
 
-          <footer className="mt-16 sm:mt-20 flex flex-col justify-between gap-3 border-t-2 border-[var(--ink)] pt-5 text-xs font-bold uppercase text-[var(--muted)] sm:flex-row">
-            <p>Taushik Chandana Portfolio '26</p>
-            <a href="#hero" className="subtle-link text-[#e52424]">
-              Back to top ↑
-            </a>
+          <footer className="mt-16 sm:mt-20 flex flex-col sm:flex-row items-center justify-between gap-4 border-t-2 border-[var(--ink)] pt-6 text-xs font-bold uppercase text-[var(--muted)]">
+            <p>Taushik Chandana Portfolio &apos;26</p>
+            <div className="flex items-center gap-4">
+              <a
+                href="/Taushik_ux_resume.pdf"
+                download="Taushik_ux_resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border-2 border-[var(--ink)] bg-[#e52424] text-white text-[11px] sm:text-xs font-black uppercase tracking-wider shadow-[3px_3px_0_#220608] hover:bg-[var(--ink)] hover:border-[var(--ink)] transition-all active:translate-x-0.5 active:translate-y-0.5"
+                aria-label="Download Resume"
+              >
+                <Download size={14} />
+                <span>Download Resume</span>
+              </a>
+              <a href="#hero" className="subtle-link text-[#e52424]">
+                Back to top ↑
+              </a>
+            </div>
           </footer>
         </div>
       </section>
