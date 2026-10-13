@@ -70,8 +70,8 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ToolsSection />
-        <UxUiProjectsSection />
         <AiProductsSection />
+        <UxUiProjectsSection />
         <ExperienceSection />
         <ContactSection />
       </main>
